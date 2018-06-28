@@ -1,0 +1,36 @@
+<h1 id="page-title" class="center">Max's Journal</h1>
+<div class="site-info center">
+  <address class="inline-block">
+    Site by <a href="https://www.maxcorwin.com">Max Corwin</a>
+  </address>
+  <p class="inline-block">
+    Source code:
+    <a href="https://www.github.com/magic31415/journal">Github Repository</a>
+  </p>
+</div>
+
+<ul>
+  <%= for entry <- @entries do %>
+    <li class="entry">
+      <a href="#<%= entry.id %>" name="<%= entry.id %>">
+        <div class="date"><%= Journal.format_date(entry.date) %></div>
+      </a>
+      <a href="#<%= entry.id %>">
+        <div class="title"><%= entry.title %></div>
+      </a>
+      <div class="message"><%= entry.message %></div>
+
+      <ul class="px-0 center">
+        <%= for image <- Journal.get_images_by_entry_id(entry.id) do %>
+          <li class="center py-3 inline-block">
+            <%= link(img_tag("https://maxcorwin.com/images/#{image.id}.jpg",
+                     class: "image"),
+                     to: "https://maxcorwin.com/images/#{image.id}.jpg") %>
+
+            <div class="caption mt-2"><%= image.caption %></div>
+          </li>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
+</ul>

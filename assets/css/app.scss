@@ -1,0 +1,69 @@
+@import "bootstrap";
+
+.background {
+	background-color: #183E2C; /* Dark Green */
+}
+
+.container {
+	background-color: #e0e0e0; /* Light Gray */
+}
+
+#page-title {
+	color: #00A000; /* Green */
+	font-family: Georgia, serif;
+}
+
+.site-info {
+  font-size: .8em;
+  margin-bottom: 1.5em;
+}
+
+.site-info > * {
+	margin-left: .5em;
+	margin-right: .5em;
+}
+
+.entry {
+	margin-bottom: 3em;
+	font-family: "Trebuchet MS", sans-serif;
+}
+
+.title {
+	font-size: 30px;
+	color: #0000A0; /* Blue */
+	margin-right: 1em;
+	font-family: Georgia, serif;
+}
+
+.date {
+	font-size: 16px;
+	color: #A00000; /* Red */
+	font-family: "Trebuchet MS", sans-serif;
+}
+
+.message {
+	font-size: 25px;
+}
+
+.image {
+	max-width: 95%;
+	max-height: 40em;
+	border: 1px solid black;
+}
+
+.caption {
+	font-family: "Courier New", serif;
+	font-size: 20px;
+}
+
+.center	{
+	text-align: center;
+}
+
+.inline-block {
+	display: inline-block;
+}
+
+ul {
+	list-style-type: none;
+}

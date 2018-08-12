@@ -24,7 +24,7 @@
         <%= for image <- Journal.get_images_by_entry_id(entry.id) do %>
           <li class="center py-3 inline-block">
             <figure>
-              <%= link(img_tag("https://maxcorwin.com/images/19.jpg",
+              <%= link(img_tag("https://maxcorwin.com/images/#{image.id}.jpg",
                        class: "image"),
                        to: "https://maxcorwin.com/images/#{image.id}.jpg") %>
               <figcaption class="caption mt-2 center"><%= image.caption %></figcaption>

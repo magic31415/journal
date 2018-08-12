@@ -5,7 +5,7 @@ defmodule Journal.Mixfile do
     [
       app: :journal,
       version: "0.0.1",
-      elixir: "~> 1.4",
+      elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env),
       compilers: [:phoenix, :gettext] ++ Mix.compilers,
       start_permanent: Mix.env == :prod,
@@ -41,7 +41,7 @@ defmodule Journal.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
-      {:distillery, "~> 1.4"},
+      {:distillery, "~> 2.0.0-rc.10"},
     ]
   end
 
@@ -55,7 +55,7 @@ defmodule Journal.Mixfile do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      "test": ["ecto.create --quiet", "ecto.migrate", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
 end

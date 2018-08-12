@@ -67,7 +67,7 @@ exports.config = {
     globals: {
       $: 'jquery',
       jQuery: 'jquery',
-      bootstrap: 'bootstrap'
-    }
+      Popper: 'popper.js',
+      bootstrap: 'bootstrap'    }
   }
 };

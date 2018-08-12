@@ -44,7 +44,7 @@ defmodule Journal do
   end
 
   def get_images_by_entry_id(entry_id) do
-  	query = from i in Image, where: i.journal_entry_id == ^entry_id
+  	query = from i in Image, where: i.journal_entry_id == ^entry_id, order_by: [i.id]
   	Repo.all(query)
   end
 end

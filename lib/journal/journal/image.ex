@@ -1,11 +1,11 @@
 defmodule Journal.Journal.Image do
   use Ecto.Schema
   import Ecto.Changeset
-
+  alias Journal.Journal.Entry
 
   schema "images" do
     field :caption, :string
-    belongs_to :journal_entry, Journal.Journal.Entry
+    belongs_to :entry, Entry
 
     timestamps()
   end
@@ -13,7 +13,8 @@ defmodule Journal.Journal.Image do
   @doc false
   def changeset(image, attrs) do
     image
-    |> cast(attrs, [:caption, :journal_entry_id])
-    |> validate_required([:caption, :journal_entry_id])
+    |> cast(attrs, [:caption, :entry])
+    |> validate_required([:entry])
   end
 end
+

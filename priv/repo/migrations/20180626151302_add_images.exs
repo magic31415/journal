@@ -3,12 +3,10 @@ defmodule Journal.Repo.Migrations.AddImages do
 
   def change do
     create table(:images) do
-      add :caption, :text
-      add :journal_entry_id, references(:journal_entries, on_delete: :delete_all)
+      add :caption, :text, null: true
+      add :entry_id, :id
 
       timestamps()
     end
-
-    create index(:images, [:journal_entry_id])
   end
 end

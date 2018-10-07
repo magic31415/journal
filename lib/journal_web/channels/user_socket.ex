@@ -2,7 +2,7 @@ defmodule JournalWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", JournalWeb.RoomChannel
+  channel "journal:code", JournalWeb.CodeChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

@@ -1,0 +1,46 @@
+<%= link "Back", to: page_path(@conn, :index) %>
+<h2 class="py-3">Post New Journal Entry</h2>
+
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= label f, :date, class: "control-label" %>:
+    <%= date_input f, :date, value: @date %>
+    <%= error_tag f, :date %>
+    <div class="front-end-error-msg hidden" id="date-error">can't be blank</div>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :title, class: "control-label" %>:
+    <%= text_input f, :title, class: "wide-field", autocomplete: "off" %>
+    <%= error_tag f, :title %>
+    <div class="front-end-error-msg hidden" id="title-error">can't be blank</div>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :message, class: "control-label" %>:
+    <%= textarea f, :message, class: "form-control big-textbox" %>
+    <%= error_tag f, :message %>
+    <div class="front-end-error-msg hidden" id="message-error">can't be blank</div>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :captions, class: "control-label" %>:
+    <%= textarea f, :captions, class: "form-control big-textbox", value: "@" %>
+  </div>
+
+  <div class="form-group" id="magic-group">
+    <button type="button" class="btn btn-secondary" id="code-btn">Magic</button>
+    <%= text_input f, :code, autocomplete: "off" %>
+  </div>
+
+  <div class="form-group">
+    <%= link "Cancel", to: page_path(@conn, :index), class: "btn btn-light mb-3" %>
+    <%= submit "Create Entry", class: "btn btn-primary mb-3", id: "createEntryBtn" %>
+  </div>
+<% end %>

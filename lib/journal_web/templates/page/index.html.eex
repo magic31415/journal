@@ -1,21 +1,20 @@
-<h1 id="page-title" class="center">Max's Journal</h1>
-<div class="site-info center">
-  <address class="inline-block">
-    Site by <a href="https://www.maxcorwin.com">Max Corwin</a>
-  </address>
-  <p class="inline-block">
-    Source code:
-    <a href="https://www.github.com/magic31415/journal">Github Repository</a>
-  </p>
-</div>
+<h1 class="center"><%= link "Max's Journal", to: page_path(@conn, :index), id: "page-title" %></h1>
+<hr class="mx-3">
 
-<ul>
+<ul id="entries">
   <%= for entry <- @entries do %>
     <li class="entry">
-      <a href="#<%= entry.id %>" name="<%= entry.id %>">
+      <a href="#<%= entry.date %>" name="<%= entry.date %>" class="inline-block">
         <div class="date"><%= Journal.format_date(entry.date) %></div>
       </a>
-      <a href="#<%= entry.id %>">
+
+      <a href='<%= "mailto:?&subject=Max%27s%20Journal:%20" <> entry.date
+               <> "&body=Check%20out%20what%20Max%20is%20up%20to!%20Looks%20like%20some%20pretty%20cool%20stuff!%0A%0A"
+               <> Journal.format_date(entry.date) <> "%0A%0A" <> entry.message <> "%0A%0A" <> entry.message
+               <> "%0A%0ATo%20view%20this%20on%20Max%27s%20website%20and%20to%20see%20what%20else%20he%27s%20up%20to%2C%20go%20to:%20https://journal.maxcorwin.com/#" <> entry.date <> "%0A%0ACheers!" %>'
+         class="inline-block ml-3 info-link">✉️ email</a>
+
+      <a href="#<%= entry.date %>">
         <div class="title"><%= entry.title %></div>
       </a>
       <div class="message"><%= entry.message %></div>
@@ -23,15 +22,31 @@
       <ul class="px-0 center">
         <%= for image <- Journal.get_images_by_entry_id(entry.id) do %>
           <li class="center py-3 inline-block">
-            <figure>
+            <figure class="image display-table">
               <%= link(img_tag("https://maxcorwin.com/images/#{image.id}.jpg",
+                       alt: image.id,
                        class: "image"),
                        to: "https://maxcorwin.com/images/#{image.id}.jpg") %>
-              <figcaption class="caption mt-2 center"><%= image.caption %></figcaption>
+              <figcaption class="caption mt-2 center"><%= image.caption %>&nbsp;</figcaption>
             </figure>
           </li>
         <% end %>
       </ul>
     </li>
+    <hr>
   <% end %>
 </ul>
+
+<div class="site-info center">
+  <address class="inline-block">
+    Site by <a href="https://www.maxcorwin.com" class="info-link">Max Corwin</a>
+  </address>
+  <p class="inline-block">
+    Source code:
+    <a href="https://www.github.com/magic31415/journal" class="info-link">Github Repository</a>
+  </p>
+  <p class="inline-block">
+    <%= link "Admin Tools", to: entry_path(@conn, :new), class: "info-link" %>
+  </p>
+</div>
+

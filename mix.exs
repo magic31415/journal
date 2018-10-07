@@ -20,7 +20,7 @@ defmodule Journal.Mixfile do
   def application do
     [
       mod: {Journal.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :textex]
     ]
   end
 
@@ -42,6 +42,7 @@ defmodule Journal.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:distillery, "~> 2.0.0-rc.10"},
+      {:textex, "~> 0.2.2"},
     ]
   end
 

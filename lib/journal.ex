@@ -1,50 +1,43 @@
 defmodule Journal do
 	import Ecto.Query, warn: false
-  alias Journal.Repo
-  alias Journal.Journal.Entry
   alias Journal.Journal.Image
+  alias Journal.Repo
 
-  def add_entry(title, message, date) do
-  	Repo.insert! %Entry{title: title, message: message, date: date}
-  end
-
-  def add_image(caption) do
-  	Repo.insert! %Image{caption: caption, journal_entry: Journal.list_entries |> Enum.at(0)}
-		# IO.puts "---Go Add Image ##{Enum.at(Journal.list_images, 0).id}---"
-  end
-
-  def get_image_numbers(count) do
-  	last = Enum.at(Journal.list_images, 0).id
-  	first = last - count + 1
-
-  	IO.puts "scp "
-  	        <> ((for n <- first..last, do: "#{n}.jpg") |> Enum.join(" "))
-  	        <> " max@45.76.167.75:~/www/maxcorwin/homepage/images"
-  end
-
-  def list_entries do
-    query = from e in Entry, order_by: [desc: e.inserted_at]
-    Repo.all(query)
-  end
-
-  def list_images do
-    query = from i in Image, order_by: [desc: i.inserted_at]
+  def get_images_by_entry_id(entry_id) do
+    query = from i in Image, where: i.entry_id == ^entry_id, order_by: [i.id]
     Repo.all(query)
   end
 
   def format_date date do
-  	separated = String.split date, "/"
-  	months = ["January", "February", "March", "April",
-  					  "May", "June", "July", "August",
-  					  "September", "October", "November", "December"]
+  	date_enum = String.split date, "-"
 
-  	month = (separated |> Enum.at(0) |> Integer.parse |> elem(0)) - 1
+  	month_int = get_date_int(date_enum, 1)
+  	day_int = get_date_int(date_enum, 2)
+  	year_int = get_date_int(date_enum, 0)
+  	wday_int = {year_int, month_int, day_int} |> Date.from_erl! |> Date.day_of_week
 
-  	Enum.at(months, month) <> " " <> Enum.at(separated, 1) <> ", 20" <> Enum.at(separated, 2)
+  	month_name = get_month_name(month_int)
+  	day_name = Integer.to_string(day_int)
+  	year_name = Integer.to_string(year_int)
+  	wday_name = get_wday_name(wday_int)
+
+  	wday_name <> ", " <> month_name <> " " <> day_name <> ", " <> year_name
   end
 
-  def get_images_by_entry_id(entry_id) do
-  	query = from i in Image, where: i.journal_entry_id == ^entry_id, order_by: [i.id]
-  	Repo.all(query)
+  defp get_month_name(month_int) do
+  	Enum.at(["January", "February", "March", "April",
+  					 "May", "June", "July", "August",
+  					 "September", "October", "November", "December"],
+  					 month_int - 1)
+  end
+
+  defp get_wday_name(wday_int) do
+  	Enum.at(["Monday", "Tuesday", "Wednesday",
+  		       "Thursday", "Friday", "Saturday", "Sunday"],
+  		       wday_int - 1)
+  end
+
+  defp get_date_int(date_enum, part_num) do
+  	date_enum |> Enum.at(part_num) |> Integer.parse |> elem(0)
   end
 end

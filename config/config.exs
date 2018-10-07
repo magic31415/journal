@@ -7,7 +7,8 @@ use Mix.Config
 
 # General application configuration
 config :journal,
-  ecto_repos: [Journal.Repo]
+  ecto_repos: [Journal.Repo],
+  code: ""
 
 # Configures the endpoint
 config :journal, JournalWeb.Endpoint,
@@ -21,6 +22,12 @@ config :journal, JournalWeb.Endpoint,
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
+
+config :textex,
+  sends_username: "max",
+  password: "ushie2Ea2n",
+  base_sends_uri: "https://app.grouptexting.com/api", # optional; uses the eztexting API url by default
+  mode: :production # optional; specifying :test will not make any actual API calls
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
